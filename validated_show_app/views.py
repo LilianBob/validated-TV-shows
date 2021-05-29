@@ -22,7 +22,7 @@ def create(request):
         return redirect('/new')
     else:
         if 'release_date' not in request.POST:
-            request.POST.get['release_date'] = '' 
+            request.POST.get['release_date'] = '' or None
         Show.objects.create(
             title=request.POST['title'],
             network=request.POST['network'],

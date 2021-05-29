@@ -1,5 +1,7 @@
 from django.db import models
 from datetime import datetime
+from django.utils import timezone
+
 
 # Create your models here.
 class ShowManager(models.Manager):
@@ -17,8 +19,8 @@ class ShowManager(models.Manager):
 class Show(models.Model):
     title= models.CharField(max_length=255)
     network= models.CharField(max_length=255)
-    release_date= models.DateField(auto_now_add=False, auto_now=False, blank=True)
-    description= models.TextField(blank=True)
+    release_date= models.DateField(auto_now_add=False, auto_now=False, blank=True, null=True)
+    description= models.TextField(null=True)
     created_at= models.DateTimeField(auto_now_add=True)
     updated_at= models.DateTimeField(auto_now=True)
 
