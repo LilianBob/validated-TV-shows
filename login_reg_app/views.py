@@ -1,19 +1,15 @@
 from django.shortcuts import render, redirect
-
-# Create your views here.
 from django.contrib import messages
 from .models import User
 import re, bcrypt
 
-# bcrypt example outside of view function
-# fake_pw = 'codingisfun123'
-# fake_pw_hash = bcrypt.hashpw(fake_pw.encode(), bcrypt.gensalt()).decode()
-# print('hashing...')
-# print(fake_pw, fake_pw_hash)
+# Create your views here.
 
-EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-# if not EMAIL_REGEX.match('jgendalcodingdojo.com'):
-#   print('no')
+
+
+# EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+#     if not EMAIL_REGEX.match('email'):
+#         return 
 def index(request):
     return render(request, 'index.html')
 
