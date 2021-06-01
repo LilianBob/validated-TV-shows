@@ -1,15 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import User
-import re, bcrypt
+import re
+import bcrypt
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
-# Create your views here.
+#create your views here
 
-
-
-# EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-#     if not EMAIL_REGEX.match('email'):
-#         return 
 def index(request):
     return render(request, 'index.html')
 
@@ -26,7 +23,7 @@ def register(request):
     password = request.POST['password']
     hash_pw = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
     User.objects.create(first_name=first_name, last_name=last_name, email=email, password=hash_pw)
-    return redirect('/')
+    return redirect('/shows/')
 
 def login(request):
     if request.method == "POST":
@@ -38,7 +35,6 @@ def login(request):
         user = User.objects.get(email=email)
         request.session['user_id'] = user.id
         return redirect("/protected")
-        return redirect('/')
 
 def protected(request):
     if 'user_id' in request.session:
@@ -48,7 +44,7 @@ def protected(request):
         }
         return render(request, 'protected.html', context)
     else: 
-        messages.error(request, 'You must be logged in to do that')
+        messages.error(request, 'You must be logged in order to access the shows')
     return redirect("/")
 
 def logout(request):
